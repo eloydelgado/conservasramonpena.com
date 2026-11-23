@@ -35,7 +35,8 @@ al menos hasta que GitHub emita el certificado HTTPS.
 
 La WordPress pasaba por Cloudflare, que ofusca los correos (`/cdn-cgi/l/email-protection`) y añade sus scripts.
 Fuera de Cloudflare eso no existe, así que el postproceso de `mirror.py` decodifica los correos a texto y
-`mailto:` normales y quita los scripts de `/cdn-cgi/`.
+`mailto:` normales y quita los scripts de `/cdn-cgi/`. Además cambia el correo del pie
+(marketing8@grupo-delgado.com en la WordPress) por web@grupo-delgado.com (`EMAIL_REPLACE` en `mirror.py`).
 
 ## Prefijo /2023/
 

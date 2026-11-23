@@ -313,6 +313,9 @@ def undo_cloudflare(t):
     return t
 
 
+# Correo de contacto que muestra la web (pie de pagina): se usa el general del grupo.
+EMAIL_REPLACE = {"marketing8@grupo-delgado.com": "web@grupo-delgado.com"}
+
 FORM_RE = re.compile(r"<form[^>]+class=[\"'][^\"']*(?:wpcf7-form|et_pb_contact_form)|et_pb_newsletter_form", re.I)
 
 
@@ -336,6 +339,8 @@ def postprocess():
         t = orig = p.read_text(encoding="utf-8")
         t = OLD_PREFIX.sub(r"\1", t)
         t = undo_cloudflare(t)
+        for old, new in EMAIL_REPLACE.items():
+            t = t.replace(old, new)
         if "cdn-cgi/l/email-protection" in t:
             print(f"  AVISO: correo de Cloudflare sin decodificar en {p.relative_to(OUT)}")
         if not FORM_RE.search(t):
